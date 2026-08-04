@@ -1,191 +1,67 @@
-# KaFin2: AI-Powered Finance Dashboard 🤖📊
+# kafin2 — 未実装のAI金融ダッシュボード構想
 
-## 概要
+> **状態: 未実装**  
+> このリポジトリは、2024年に作成されたREADMEだけの構想文書です。実行可能なアプリケーション、データ、テスト、CI、公開環境は含まれていません。
 
-KaFin2は、最先端のAI技術と包括的な金融データ分析を組み合わせた革新的なオープンソースプロジェクトです。自然言語でコマンドを入力するだけで、金融データの分析や可視化を瞬時に実行できます。クラウドベースのソリューションとして、PCだけでなくモバイルデバイスからもアクセス可能で、常に最新の金融データとAI分析を提供します。
+## 目的
 
-## 主な特徴 ✨
+自然言語から金融データの取得・分析・可視化を指示できるダッシュボードの構想を記録しています。
 
-- **AI駆動の自然言語インターフェース**: OpenAI GPT-4による高度な言語理解と処理
-- **動的ダッシュボード生成**: ユーザーリクエストに基づくリアルタイムダッシュボード作成
-- **包括的な金融データ**: 複数のデータソースを統合した広範な金融データ分析
-- **自動データ更新**: クラウドサービスを活用した効率的なデータパイプライン
-- **履歴管理**: ユーザーリクエストとダッシュボードの永続化と再利用
-- **最近使用したダッシュボードへの簡単アクセス**: ホーム画面からワンクリックで過去の分析に再アクセス
-- **マルチデバイス対応**: PCとモバイルデバイスの両方で利用可能
-- **クラウドネイティブ**: スケーラブルでコスト効率の高いアーキテクチャ
-- **完全無料**: オープンソースツールと無料サービスによるコストゼロの運用
+構想上は、株価、経済統計、LLM、履歴保存、モバイルUIなどを一つの画面へ統合することを想定していました。ただし、これらは現在のdefault branchへ実装されていません。
 
-## アーキテクチャと技術スタック 🛠
+## 現在の実体
 
-### バックエンド
-- **言語**: Python 3.9+
-- **Webフレームワーク**: Streamlit
-- **データ処理**: Pandas, NumPy
-- **データ取得**:
-  - yfinance: 株式データ
-  - FRED API: 経済指標
-  - Google Drive API: データストレージと同期
-- **AI/ML**: OpenAI API (GPT-4): 自然言語処理
-- **データベース**: SQLite (ローカル開発), PostgreSQL (本番環境)
+2026年8月5日の監査時点で確認できるのは`README.md`だけです。
 
-### フロントエンド
-- Streamlitによる動的UIジェネレーション
-- Plotly: インタラクティブな可視化
-- Tailwind CSS: レスポンシブデザイン
+| 項目 | 状態 |
+|---|---|
+| アプリケーションコード | なし |
+| `requirements.txt`または依存lock | なし |
+| データ・schema | なし |
+| テスト | なし |
+| GitHub Actions | なし |
+| Streamlit設定 | なし |
+| database設定 | なし |
+| 公開deploymentの証拠 | なし |
 
-### インフラストラクチャ
-- **ホスティング**: Streamlit Cloud
-- **バージョン管理**: GitHub
-- **CI/CD**: GitHub Actions
-- **データストレージ**: Google Drive
-- **スケジューリング**: GitHub Actions (定期的なデータ更新用)
+READMEの旧版に記載されていた`app/`、`data/`、`tests/`、`.github/workflows/`は存在しません。
 
-## フォルダ構成
+## 現在できること
 
-```
-kafin2/
-│
-├── app/
-│   ├── __init__.py
-│   ├── main.py
-│   ├── data_manager.py
-│   ├── analysis.py
-│   ├── visualization.py
-│   └── ai_interface.py
-│
-├── data/
-│   └── tickers.json
-│
-├── tests/
-│   ├── __init__.py
-│   ├── test_data_manager.py
-│   ├── test_analysis.py
-│   └── test_ai_interface.py
-│
-├── .github/
-│   └── workflows/
-│       └── update_data.yml
-│
-├── requirements.txt
-└── README.md
-```
+- 2024年時点の製品アイデアを確認する
+- 将来実装する場合の要求候補として参照する
 
-## OpenAI Function Call
+## 現在できないこと
 
-KaFin2は、OpenAI APIのfunction calling機能を活用して、ユーザーの自然言語入力を具体的な分析タスクに変換します。主要なfunction definitionの例:
+- Streamlitアプリを起動する
+- OpenAI、FRED、Google Driveへ接続する
+- 自然言語から金融分析を生成する
+- dashboardを保存・共有する
+- 定期的にデータを更新する
+- 公開URLで稼働状態を確認する
 
-```python
-functions = [
-    {
-        "name": "get_stock_data",
-        "description": "指定された銘柄の株価データを取得します",
-        "parameters": {
-            "type": "object",
-            "properties": {
-                "tickers": {
-                    "type": "array",
-                    "items": {"type": "string"},
-                    "description": "株式銘柄のリスト"
-                },
-                "start_date": {"type": "string", "format": "date"},
-                "end_date": {"type": "string", "format": "date"}
-            },
-            "required": ["tickers"]
-        }
-    },
-    {
-        "name": "create_price_chart",
-        "description": "株価チャートを作成します",
-        "parameters": {
-            "type": "object",
-            "properties": {
-                "tickers": {
-                    "type": "array",
-                    "items": {"type": "string"},
-                    "description": "株式銘柄のリスト"
-                },
-                "chart_type": {
-                    "type": "string",
-                    "enum": ["line", "candle"],
-                    "description": "チャートのタイプ"
-                }
-            },
-            "required": ["tickers", "chart_type"]
-        }
-    }
-]
-```
+旧READMEに記載されていた公開URL、常時最新、完全無料、スケーラブルなどの表現は、現在のrepository実体では確認できないため撤回します。
 
-## 使用例 💡
+## 再開する場合の最小条件
 
-1. "トヨタ自動車とホンダの株価を過去3ヶ月間比較して、ラインチャートで表示してください。"
+実装を再開する場合は、少なくとも次を追加する必要があります。
 
-2. "日経平均とS&P500の2023年のパフォーマンスを比較し、月次リターンの棒グラフを作成してください。"
+1. 正準なアプリケーションentrypoint
+2. version固定された依存定義
+3. 使用するデータ源、series ID、単位、取得日時の台帳
+4. credentialをrepositoryへ保存しない設定
+5. 実績、予測、LLM生成文の表示上の分離
+6. 空データ、API失敗、古いcacheを成功扱いしない処理
+7. unit testとend-to-end smoke test
+8. deployment先とcommit SHAを照合できる公開証拠
 
-3. "FRBのバランスシートと10年国債利回りの推移を過去5年分表示し、その相関関係を説明してください。"
+## 金融情報の扱い
 
-4. "ドル円為替レートと日経平均の関係を示す散布図を作成し、直近1年間のデータポイントを表示してください。"
+将来実装する場合でも、生成結果を投資助言、売買推奨、将来収益の保証として扱いません。株価・経済統計・企業財務は、出典、観測日、取得日、通貨、単位、改訂状態を保持する必要があります。
 
-5. "GAFA（Google, Apple, Facebook, Amazon）の株価パフォーマンスを年初来で比較し、各社の騰落率をテーブルで表示してください。"
+## 関連する監査
 
-これらの例は、複雑な金融分析を必要とせず、基本的なデータ取得と可視化に焦点を当てています。
+- README監査Issue: https://github.com/KAFKA2306/kafin2/issues/1
+- 全repository README監査: https://github.com/KAFKA2306/com/issues/3
 
-## クイックスタート 🚀
-
-1. アプリにアクセス: [https://kafin2.streamlit.app](https://kafin2.streamlit.app)
-2. GitHubアカウントでログイン
-3. 自然言語で金融分析リクエストを入力
-4. AIが生成したダッシュボードを閲覧・共有
-
-## デプロイ方法 (開発者向け) 🖥
-
-1. リポジトリをフォーク & クローン:
-   ```
-   git clone https://github.com/yourusername/kafin2.git
-   cd kafin2
-   ```
-
-2. 仮想環境の作成と依存関係のインストール:
-   ```
-   python -m venv venv
-   source venv/bin/activate  # Windowsの場合: venv\Scripts\activate
-   pip install -r requirements.txt
-   ```
-
-3. 環境変数の設定:
-   ```
-   export OPENAI_API_KEY=your_openai_api_key
-   export FRED_API_KEY=your_fred_api_key
-   export GOOGLE_DRIVE_CREDENTIALS='{your_google_drive_credentials_json}'
-   ```
-
-4. ローカルでの実行:
-   ```
-   streamlit run app/main.py
-   ```
-
-5. Streamlit Cloudでのデプロイ:
-   - GitHubリポジトリをStreamlit Cloudに接続
-   - 環境変数を設定
-   - デプロイボタンをクリック
-
-6. GitHub Actionsの設定:
-   - `.github/workflows/update_data.yml` を確認し、必要に応じて調整
-   - リポジトリの Secrets に必要な環境変数を追加
-
-KaFin2は、金融データの分析と可視化を簡単かつ直感的に行えるプラットフォームです。AIの力を借りて、複雑な金融情報を誰もが理解しやすい形で提供します。ぜひKaFin2を使って、あなたの金融分析を次のレベルに引き上げてください！
-
-
-
----
-
-言語入力インターフェースではガイド機能やカスタムルールを追加し、ユーザーの意図を正確に理解する仕組みを作る。
-
-キャッシュやconcurrentの処理を追加し、データ取得を効率化する。
-
-シンプルなデフォルト設定を進め、ユーザーフレンドリーなUIを提供する。
-
-チュートリアルを追加する。
-
-自動テストを強化する。
+**README監査日:** 2026年8月5日
